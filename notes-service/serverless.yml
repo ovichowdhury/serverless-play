@@ -1,0 +1,36 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: erainfotechbd
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: notes-service
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  createNote:
+    handler: handler.createNote
+    events:
+      - httpApi:
+          path: /notes
+          method: post
+  updateNote:
+    handler: handler.updateNote
+    events:
+      - httpApi:
+          path: /notes/{id}
+          method: put
+  deleteNote:
+    handler: handler.deleteNote
+    events:
+      - httpApi:
+          path: /notes/{id}
+          method: delete
+  getAllNotes:
+    handler: handler.getAllNotes
+    events:
+      - httpApi:
+          path: /notes
+          method: get
